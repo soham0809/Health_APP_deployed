@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Prediction Models - Home</title>
+    <style>
+      :root {
+        --primary: #4a90e2;
+        --dark-blue: #2c3e50;
+        --light-bg: #ecf0f1;
+        --card-bg: #ffffff;
+        --text-dark: #2c3e50;
+        --text-light: #7f8c8d;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-bg);
+        color: var(--text-dark);
+      }
+
+      .navbar {
+        background-color: var(--dark-blue);
+        padding: 15px 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar ul li {
+        margin-right: 20px;
+      }
+
+      .navbar ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+      }
+
+      .auth-buttons a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+      }
+
+      .btn-outline {
+        border: 1px solid white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: all 0.3s;
+      }
+
+      .btn-outline:hover {
+        background-color: white;
+        color: var(--dark-blue);
+      }
+
+      .user-info {
+        color: white;
+        display: flex;
+        align-items: center;
+      }
+
+      .user-info a {
+        color: white;
+        text-decoration: none;
+        margin-left: 15px;
+        font-size: 14px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .hero {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        color: var(--dark-blue);
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      /* Slider styles */
+      .slider-container {
+        position: relative;
+        width: 100%;
+        max-width: 1000px;
+        height: auto;
+        margin: 2rem auto;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
+      }
+
+      .slider img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        flex-shrink: 0;
+      }
+
+      .services {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .service-card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s;
+      }
+
+      .service-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .service-card h2 {
+        color: var(--dark-blue);
+        margin-bottom: 15px;
+      }
+
+      .service-card p {
+        color: var(--text-light);
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+
+      .service-card a {
+        display: inline-block;
+        background-color: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: 500;
+        transition: background-color 0.3s;
+      }
+
+      .service-card a:hover {
+        background-color: #3a7bc8;
+      }
+
+      .footer {
+        background-color: var(--dark-blue);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+      }
+
+      .footer a {
+        color: #4a90e2;
+        text-decoration: none;
+      }
+
+      .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .alert-info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      {% if logged_in %}
+      <div class="user-info">
+        Welcome, {{ username }}
+        <a href="/logout">Log Out</a>
+      </div>
+      {% else %}
+      <div class="auth-buttons">
+        <a href="/login">Sign In</a>
+        <a href="/signup" class="btn-outline">Sign Up</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <div class="hero">
+        <h1>Advanced Medical Prediction Models</h1>
+        <p>
+          Our platform uses machine learning to provide accurate predictions for
+          diabetes, tumor detection, and heart attack risk. These tools can help
+          healthcare professionals make informed decisions about patient care.
+        </p>
+      </div>
+
+      <!-- Added Image Slider -->
+      <div class="slider-container">
+        <div class="slider" id="slider">
+          <img src="static/images/slide1.jpg" alt="Slide 1" />
+          <img src="static/images/slide2.jpg" alt="Slide 2" />
+          <img src="static/images/slide3.jpg" alt="Slide 3" />
+        </div>
+      </div>
+
+      <div class="services">
+        <div class="service-card">
+          <h2>Diabetes Prediction</h2>
+          <p>
+            Predict diabetes risk using patient data such as age, BMI, blood
+            glucose levels, and medical history.
+          </p>
+          <a href="/diabetes">Try it now</a>
+        </div>
+
+        <div class="service-card">
+          <h2>Tumor Detection</h2>
+          <p>
+            Upload medical images to detect tumors using our advanced image
+            processing and machine learning algorithms.
+          </p>
+          <a href="/tumor">Try it now</a>
+        </div>
+
+        <div class="service-card">
+          <h2>Heart Attack Risk</h2>
+          <p>
+            Assess heart attack risk based on comprehensive health metrics
+            including blood pressure, cholesterol, and lifestyle factors.
+          </p>
+          <a href="/heart_attack">Try it now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 Medical Prediction Models. All Rights Reserved.</p>
+      <p>
+        <a href="/privacy">Privacy Policy</a> |
+        <a href="/terms">Terms of Service</a>
+      </p>
+    </div>
+
+    <!-- Added Slider Script -->
+    <script>
+      let currentIndex = 0;
+      const slider = document.getElementById("slider");
+      const totalImages = document.querySelectorAll("#slider img").length;
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalImages;
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }, 3000);
+    </script>
+  </body>
+</html>

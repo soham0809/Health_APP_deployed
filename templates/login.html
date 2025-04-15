@@ -1,0 +1,192 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Prediction Models - Login</title>
+    <style>
+      :root {
+        --primary: #4a90e2;
+        --dark-blue: #2c3e50;
+        --light-bg: #ecf0f1;
+        --card-bg: #ffffff;
+        --text-dark: #2c3e50;
+        --text-light: #7f8c8d;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-bg);
+        color: var(--text-dark);
+      }
+
+      .navbar {
+        background-color: var(--dark-blue);
+        padding: 15px 20px;
+        color: white;
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar ul li {
+        margin-right: 20px;
+      }
+
+      .navbar ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 150px);
+      }
+
+      .auth-card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 400px;
+        max-width: 100%;
+      }
+
+      .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .auth-header h1 {
+        color: var(--dark-blue);
+        margin-bottom: 10px;
+      }
+
+      .auth-header p {
+        color: var(--text-light);
+        margin: 0;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: 500;
+        transition: background-color 0.3s;
+      }
+
+      .btn-primary:hover {
+        background-color: #3a7bc8;
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .auth-footer a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .auth-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .footer {
+        background-color: var(--dark-blue);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+      }
+
+      .footer a {
+        color: #4a90e2;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to access Medical Prediction Models</p>
+        </div>
+
+        <form action="/login" method="POST">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+
+          <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Don't have an account? <a href="/signup">Sign up</a></p>
+          <p><a href="/forgot-password">Forgot password?</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 Medical Prediction Models. All Rights Reserved.</p>
+      <p>
+        <a href="/privacy">Privacy Policy</a> |
+        <a href="/terms">Terms of Service</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Prediction Models</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        nav {
+            width: 100%;
+            background-color: #2d3748;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            margin-top: 6rem; /* To account for fixed navbar */
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        /* Slider styles */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: auto; /* Auto height to preserve aspect ratio */
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%; /* Ensuring the width fits the container */
+        }
+
+        .slider img {
+            width: 100%; /* Responsive image width */
+            height: auto; /* Maintain image aspect ratio */
+            object-fit: contain; /* Contain to avoid cropping or magnifying */
+            flex-shrink: 0;
+        }
+
+        /* Prediction Models Grid */
+        .model-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            margin-top: 2rem;
+        }
+
+        .model-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            transition: transform 0.2s ease-in-out;
+            border: 1px solid #e2e8f0;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-card a {
+            text-decoration: none;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1.25rem;
+            display: block;
+        }
+
+        .model-card p {
+            margin-top: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+
+        .footer {
+            background-color: #2d3748;
+            color: white;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+
+        .footer a {
+            color: #4299e1;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main container -->
+    <div class="container">
+        <h1>Medical Prediction Models</h1>
+
+        <!-- Image Slider -->
+        <div class="slider-container">
+            <div class="slider" id="slider">
+                <img src="static/images/slide1.jpg" alt="Slide 1">
+                <img src="static/images/slide2.jpg" alt="Slide 2">
+                <img src="static/images/slide3.jpg" alt="Slide 3">
+            </div>
+        </div>
+
+        <!-- Prediction Models Grid -->
+        <div class="model-grid">
+            <div class="model-card">
+                <div class="icon">🩺</div>
+                <a href="/diabetes">Diabetes Prediction</a>
+                <p>Analyze health metrics to assess diabetes risk factors</p>
+            </div>
+            
+            <div class="model-card">
+                <div class="icon">🧠</div>
+                <a href="/tumor">Brain Tumor Detection</a>
+                <p>Advanced imaging analysis for tumor detection</p>
+            </div>
+            
+            <div class="model-card">
+                <div class="icon">📊</div>
+                <a href="/model3">Model 3 Prediction</a>
+                <p>Additional medical analysis and predictions</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Medical Prediction Models. All Rights Reserved.</p>
+        <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+    </div>
+
+    <!-- Slider Script -->
+    <script>
+        let currentIndex = 0;
+        const slider = document.getElementById('slider');
+        const totalImages = document.querySelectorAll('#slider img').length;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalImages;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }, 3000);
+    </script>
+</body>
+</html>

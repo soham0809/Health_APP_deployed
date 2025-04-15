@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Attack Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Heart Attack Prediction</h2>
+        <form action="{{ url_for('heart_attack') }}" method="post">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select class="form-control" name="sex" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cholesterol">Cholesterol:</label>
+                <input type="number" class="form-control" name="cholesterol" required>
+            </div>
+            <div class="form-group">
+                <label for="blood_pressure">Blood Pressure (Systolic/Diastolic):</label>
+                <input type="text" class="form-control" name="blood_pressure" placeholder="e.g., 120/80" required>
+            </div>
+            <div class="form-group">
+                <label for="heart_rate">Heart Rate:</label>
+                <input type="number" class="form-control" name="heart_rate" required>
+            </div>
+            <div class="form-group">
+                <label for="diabetes">Diabetes:</label>
+                <select class="form-control" name="diabetes" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="family_history">Family History:</label>
+                <select class="form-control" name="family_history" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="smoking">Smoking:</label>
+                <select class="form-control" name="smoking" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="obesity">Obesity:</label>
+                <select class="form-control" name="obesity" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="alcohol">Alcohol Consumption:</label>
+                <select class="form-control" name="alcohol" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exercise_hours">Exercise Hours Per Week:</label>
+                <input type="number" class="form-control" name="exercise_hours" required>
+            </div>
+            <div class="form-group">
+                <label for="diet">Diet:</label>
+                <select class="form-control" name="diet" required>
+                    <option value="0">Unhealthy</option>
+                    <option value="1">Average</option>
+                    <option value="2">Healthy</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="previous_heart_problems">Previous Heart Problems:</label>
+                <select class="form-control" name="previous_heart_problems" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="medication_use">Medication Use:</label>
+                <select class="form-control" name="medication_use" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="stress_level">Stress Level:</label>
+                <input type="number" class="form-control" name="stress_level" required>
+            </div>
+            <div class="form-group">
+                <label for="sedentary_hours">Sedentary Hours Per Day:</label>
+                <input type="number" class="form-control" name="sedentary_hours" required>
+            </div>
+            <div class="form-group">
+                <label for="income">Income:</label>
+                <input type="range" class="form-control-range" name="income" min="20000" max="300000" step="1000" value="0" id="incomeSlider" required oninput="updateIncomeValue(this.value)">
+                <small>Min: 20000, Max: 300000</small>
+                <p>Selected Income: <span id="incomeValue">0</span></p>
+            </div>
+            <div class="form-group">
+                <label for="bmi">BMI:</label>
+                <input type="number" class="form-control" name="bmi" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="triglycerides">Triglycerides:</label>
+                <input type="number" class="form-control" name="triglycerides" required>
+            </div>
+            <div class="form-group">
+                <label for="physical_activity_days">Physical Activity Days Per Week:</label>
+                <input type="number" class="form-control" name="physical_activity_days" required>
+            </div>
+            <div class="form-group">
+                <label for="sleep_hours">Sleep Hours Per Day:</label>
+                <input type="number" class="form-control" name="sleep_hours" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+        {% if result %}
+            <h3 class="mt-5">{{ result }}</h3>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    function updateIncomeValue(value) {
+        document.getElementById('incomeValue').textContent = value;
+    }
+    </script>
+
+</body>
+</html>

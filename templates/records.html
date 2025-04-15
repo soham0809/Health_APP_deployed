@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Records - Medical Prediction Models</title>
+    <style>
+      :root {
+        --primary: #4a90e2;
+        --dark-blue: #2c3e50;
+        --light-bg: #ecf0f1;
+        --card-bg: #ffffff;
+        --text-dark: #2c3e50;
+        --text-light: #7f8c8d;
+        --success: #27ae60;
+        --danger: #e74c3c;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-bg);
+        color: var(--text-dark);
+      }
+
+      .navbar {
+        background-color: var(--dark-blue);
+        padding: 15px 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar ul li {
+        margin-right: 20px;
+      }
+
+      .navbar ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .user-info {
+        color: white;
+        display: flex;
+        align-items: center;
+      }
+
+      .user-info a {
+        color: white;
+        text-decoration: none;
+        margin-left: 15px;
+        font-size: 14px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        color: var(--dark-blue);
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        color: var(--text-light);
+      }
+
+      .records-container {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        overflow-x: auto;
+      }
+
+      .records-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      .records-table th,
+      .records-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .records-table th {
+        background-color: var(--dark-blue);
+        color: white;
+      }
+
+      .records-table tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      .result-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .positive {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .negative {
+        background-color: var(--success);
+        color: white;
+      }
+
+      .not-tested {
+        background-color: #95a5a6;
+        color: white;
+      }
+
+      .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .alert-info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+
+      .footer {
+        background-color: var(--dark-blue);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        margin-top: 40px;
+      }
+
+      .footer a {
+        color: #4a90e2;
+        text-decoration: none;
+      }
+
+      .export-btn {
+        display: inline-block;
+        background-color: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        transition: background-color 0.3s;
+      }
+
+      .export-btn:hover {
+        background-color: #3a7bc8;
+      }
+
+      .stats-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+      }
+
+      .stat-card h3 {
+        color: var(--text-light);
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .stat-card .number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--dark-blue);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact</a></li>
+        {% if is_admin %}
+        <li><a href="/records">RECORDS</a></li>
+        {% endif %}
+      </ul>
+      <div class="user-info">
+        Welcome, Admin
+        <a href="/logout">Log Out</a>
+      </div>
+    </div>
+
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <div class="header">
+        <h1>Patient Records Dashboard</h1>
+        <p>Complete overview of all patient test results and history</p>
+      </div>
+
+      <div class="stats-cards">
+        <div class="stat-card">
+          <h3>Total Patients</h3>
+          <div class="number">{{ patients|length }}</div>
+        </div>
+        <div class="stat-card">
+          <h3>Diabetes Tests</h3>
+          <div class="number">
+            {{ patients|selectattr('diabetes_result', 'defined')|list|length }}
+          </div>
+        </div>
+        <div class="stat-card">
+          <h3>Tumor Tests</h3>
+          <div class="number">
+            {{ patients|selectattr('tumor_result', 'defined')|list|length }}
+          </div>
+        </div>
+        <div class="stat-card">
+          <h3>Heart Risk Tests</h3>
+          <div class="number">
+            {{ patients|selectattr('heart_result', 'defined')|list|length }}
+          </div>
+        </div>
+      </div>
+
+      <a href="{{ url_for('download_csv') }}" class="export-btn"
+        >Export Records (CSV)</a
+      >
+
+      <div class="records-container">
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Patient Name</th>
+              <th>Email</th>
+              <th>Last Login</th>
+              <th>Diabetes Result</th>
+              <th>Tumor Result</th>
+              <th>Heart Attack Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for patient in patients %}
+            <tr>
+              <td>{{ patient.id }}</td>
+              <td>{{ patient.name }}</td>
+              <td>{{ patient.email }}</td>
+              <td>{{ patient.last_login.strftime('%Y-%m-%d %H:%M') }}</td>
+              <td>
+                {% if patient.diabetes_result is none %}
+                <span class="result-badge not-tested">Not Tested</span>
+                {% elif patient.diabetes_result %}
+                <span class="result-badge positive">Positive</span>
+                {% else %}
+                <span class="result-badge negative">Negative</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if patient.tumor_result is none %}
+                <span class="result-badge not-tested">Not Tested</span>
+                {% elif patient.tumor_result %}
+                <span class="result-badge positive">Detected</span>
+                {% else %}
+                <span class="result-badge negative">Not Detected</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if patient.heart_result is none %}
+                <span class="result-badge not-tested">Not Tested</span>
+                {% elif patient.heart_result %}
+                <span class="result-badge positive">Risk Detected</span>
+                {% else %}
+                <span class="result-badge negative">No Risk</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 Medical Prediction Models. All Rights Reserved.</p>
+      <p>
+        <a href="/privacy">Privacy Policy</a> |
+        <a href="/terms">Terms of Service</a>
+      </p>
+    </div>
+  </body>
+</html>
