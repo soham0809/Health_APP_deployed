@@ -18,69 +18,28 @@ jobs:
       - name: Login to Docker Hub
         run: echo "6UHz383_A).94zd" | docker login -u "sohammjoshi" --password-stdin
 
-      - name: Build Docker image with debug output
+      - name: Build Docker image
         run: |
-          # Print the Dockerfile content for debugging
-          echo "Dockerfile contents:"
-          cat Dockerfile
-
-          # Build with verbose output
-          docker build --no-cache -t sohammjoshi/dwm_project:latest . || (echo "Build failed with exit code: $?" && exit 1)
-
-      - name: Push Docker image
-        run: docker push sohammjoshi/dwm_project:latest
+          docker build -t sohammjoshi/dwm_project:latest .
+          docker push sohammjoshi/dwm_project:latest
 
   deploy:
     needs: build-and-push
-    runs-on: self-hosted
+    runs-on: self-hosted # This will use your EC2-based runner
 
     steps:
-      - name: Deploy on EC2
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: 3.109.211.43
-          username: ubuntu
-          key: |
-            -----BEGIN RSA PRIVATE KEY-----
-            MIIEpQIBAAKCAQEA4AxgyLiW4xHruDxbx0vlKjq+bGyHsWSu6cEbLJIFoyJmbyHY
-            CH14ik9GInooXegof9T4hxMe+I8PTBl4p3ogUbNoSYm+4HT7ACizl90xRABhBPpr
-            fMbgpVUVgihQmYEJLLkbclm+QmzC/1/dMTVwev3ePWJdPWrV0CDUCTw/HALAEQMk
-            bRBs4CW3nEZF3kX48Kws1zG2wymtxhrq18VCxJr8l7P5wzFJu1EbR7twOPEq7582
-            8oR5XgUK/AG+DyrXxDf9M3SSXrcxHEozn6+wYDUoGDenADyA8ipFa2x9x+2xUOv5
-            mhGGZrPU2V4sp/GxGXVi3wiWDfh9dyOtbKlPgQIDAQABAoIBAQDGm1JkO/VNXoJ1
-            M9Qry+ReVeqdlGuI3faLsimTjfG/Vew10Wt+wzLKcFF8mIsWC4lzH+gbXODUd4SY
-            8e9ZjtH9eqsUnS1+LVSfJHVnRqW4YRmf3xjPaECVbuH9Gh2wpYjrgz+IU3Nr0Jve
-            4yzhxTxrWoXaJkr++aiFscQkV6qd+U1YriOp5DN5d4l8jX5clJS3eqmuqNH+6tho
-            JXBhpUkElM9SxRnNjboJgA0d3kmdOE0L0duzZHLV9XhbQW1PXf/oJoMas7X6msgb
-            4jNj6XmJoxV965aKvvdt/jcDEAtk3oNRf6WznUZsQkoWYtH1wdcUrrDlRfuyi/Pm
-            V+i2WcEBAoGBAPcTZA7YSZ3TZnM+hSXoOpEI+zXf2hcvBFcDODr3RLx0s7nhR8HH
-            8A7mfNUzjoxcoBdr32m/J8ETrG/YdIs6Np8enfAQ00Gw51Zgbs2Oe9CBd8/g3P9x
-            UFex1ahHJP8wMNysjegnsyo0v5UeADOTIU8rotAcecspej/HXWStUAoxAoGBAOgk
-            D+9oJ/1i6uxXD5a1jNfjms2nMprwkfACP5ImW0cA4Ylwokjq3msnIoOhVXRzirwv
-            Qgo+aumW4fCgrV5Ufx2GFGYUwA+tGV//uuqn+WWygPFuzl1gZCfjzGSyWNY2pL90
-            h6JuRUTYxCrS+lj7xJUayuvBXljHDMhsA/Z3e/ZRAoGBANuVszZySTLoP8Qqi2E+
-            PFbL+Z9O3GAAXEYMyXu2aLNosJaBvildzV8gv08oLAdZBrrqFzu/NNCm8HjSkflu
-            +j5+knVaLrbSRzeAKtmrSSTs+5OX0DGB/pqBpVaSLDJUHQjynof2SIg5Kw+XAyzT
-            FSZsrJ1ywVeq/EgUok8orNrxAoGBAJPm3gw/hTMIgfrAYVs5IpouFmQuwaw72A9d
-            r1kTfRZY9llV3N+uXLVSgsfw03xVXTAWv/G84OsgyaVBChROq4qI8Zg0YkXamI80
-            ZMe668gimcq5OVv+3PEZTxFdHAKnYAHnYb9YmGOL5DgQoZZuGkqRfnYEhnLzpy5O
-            u5uddupxAoGAFp9PBMA+qbtEH8VoufE/X0ulm8BJphxgWaC3Qu5gMp9QIVhmSH5W
-            iL8kyOGw0Azo7ZY+cPO1CeNSjh+J3bITu78TOBxo8f9qts0MkoG362BsJiBx9nrO
-            cKzk0DmvFJ9u06Wi/+nDyKy/UbbugqnPDsSViMLWi2GNygir9bxDPdg=
-            -----END RSA PRIVATE KEY-----
-          script: |
-            # Check Docker status
-            sudo systemctl status docker
+      - name: Deploy directly on self-hosted runner
+        run: |
+          # Pull the latest image
+          docker pull sohammjoshi/dwm_project:latest
 
-            # Pull the latest image
-            docker pull sohammjoshi/dwm_project:latest
+          # Stop and remove existing container if it exists
+          docker stop dwm_project || true
+          docker rm dwm_project || true
 
-            # Stop and remove existing container if it exists
-            docker stop dwm_project || true
-            docker rm dwm_project || true
+          # Run new container
+          docker run -d -p 80:5000 --name dwm_project sohammjoshi/dwm_project:latest
 
-            # Run new container
-            docker run -d -p 80:5000 --name dwm_project sohammjoshi/dwm_project:latest
-
-            # Verify container is running
-            docker ps | grep dwm_project
+          # Verify container is running
+          docker ps | grep dwm_project || echo "Container not running!"
+          docker logs dwm_project
