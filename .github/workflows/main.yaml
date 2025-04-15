@@ -41,33 +41,34 @@ jobs:
           host: 3.109.211.43
           username: ubuntu
           key: |
-            -----BEGIN RSA PRIVATE KEY-----
-            MIIEpQIBAAKCAQEA4AxgyLiW4xHruDxbx0vlKjq+bGyHsWSu6cEbLJIFoyJmbyHY
-            CH14ik9GInooXegof9T4hxMe+I8PTBl4p3ogUbNoSYm+4HT7ACizl90xRABhBPpr
-            fMbgpVUVgihQmYEJLLkbclm+QmzC/1/dMTVwev3ePWJdPWrV0CDUCTw/HALAEQMk
-            bRBs4CW3nEZF3kX48Kws1zG2wymtxhrq18VCxJr8l7P5wzFJu1EbR7twOPEq7582
-            8oR5XgUK/AG+DyrXxDf9M3SSXrcxHEozn6+wYDUoGDenADyA8ipFa2x9x+2xUOv5
-            mhGGZrPU2V4sp/GxGXVi3wiWDfh9dyOtbKlPgQIDAQABAoIBAQDGm1JkO/VNXoJ1
-            M9Qry+ReVeqdlGuI3faLsimTjfG/Vew10Wt+wzLKcFF8mIsWC4lzH+gbXODUd4SY
-            8e9ZjtH9eqsUnS1+LVSfJHVnRqW4YRmf3xjPaECVbuH9Gh2wpYjrgz+IU3Nr0Jve
-            4yzhxTxrWoXaJkr++aiFscQkV6qd+U1YriOp5DN5d4l8jX5clJS3eqmuqNH+6tho
-            JXBhpUkElM9SxRnNjboJgA0d3kmdOE0L0duzZHLV9XhbQW1PXf/oJoMas7X6msgb
-            4jNj6XmJoxV965aKvvdt/jcDEAtk3oNRf6WznUZsQkoWYtH1wdcUrrDlRfuyi/Pm
-            V+i2WcEBAoGBAPcTZA7YSZ3TZnM+hSXoOpEI+zXf2hcvBFcDODr3RLx0s7nhR8HH
-            8A7mfNUzjoxcoBdr32m/J8ETrG/YdIs6Np8enfAQ00Gw51Zgbs2Oe9CBd8/g3P9x
-            UFex1ahHJP8wMNysjegnsyo0v5UeADOTIU8rotAcecspej/HXWStUAoxAoGBAOgk
-            D+9oJ/1i6uxXD5a1jNfjms2nMprwkfACP5ImW0cA4Ylwokjq3msnIoOhVXRzirwv
-            Qgo+aumW4fCgrV5Ufx2GFGYUwA+tGV//uuqn+WWygPFuzl1gZCfjzGSyWNY2pL90
-            h6JuRUTYxCrS+lj7xJUayuvBXljHDMhsA/Z3e/ZRAoGBANuVszZySTLoP8Qqi2E+
-            PFbL+Z9O3GAAXEYMyXu2aLNosJaBvildzV8gv08oLAdZBrrqFzu/NNCm8HjSkflu
-            +j5+knVaLrbSRzeAKtmrSSTs+5OX0DGB/pqBpVaSLDJUHQjynof2SIg5Kw+XAyzT
-            FSZsrJ1ywVeq/EgUok8orNrxAoGBAJPm3gw/hTMIgfrAYVs5IpouFmQuwaw72A9d
-            r1kTfRZY9llV3N+uXLVSgsfw03xVXTAWv/G84OsgyaVBChROq4qI8Zg0YkXamI80
-            ZMe668gimcq5OVv+3PEZTxFdHAKnYAHnYb9YmGOL5DgQoZZuGkqRfnYEhnLzpy5O
-            u5uddupxAoGAFp9PBMA+qbtEH8VoufE/X0ulm8BJphxgWaC3Qu5gMp9QIVhmSH5W
-            iL8kyOGw0Azo7ZY+cPO1CeNSjh+J3bITu78TOBxo8f9qts0MkoG362BsJiBx9nrO
-            cKzk0DmvFJ9u06Wi/+nDyKy/UbbugqnPDsSViMLWi2GNygir9bxDPdg=
-            -----END RSA PRIVATE KEY-----
+            -----BEGIN OPENSSH PRIVATE KEY-----
+                b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn
+                NhAAAAAwEAAQAAAQEAtVhr/BK7pg5FYr8ISd5DTCZ+CPQQDXQVZGyZ+WvtdV2nj3qDBjS8
+                AxOKTI4ksMV2nmTACk05zHI9HZohvOUBuu+CCS5oCSIoNw5J2i01hEXNuWnuVGwWsQeVeI
+                rDri4/mEjAcIm21TxM0YYppRdeecFtunm+3E68aNkgm/DBJusxkyi99nYw7On8P8ptLqdu
+                Ezk4GBL1+gv/jEypZ6KWkl7luiZnRLtQam0QluDRHiP5RnsKoOjYYl23Zi2KrjXOtVcNDT
+                slCWigAU1XcRSBCtKdPY5kuLxH4J0LsNnqUoXdC2MwGZ4IRnQNfocI1lw4OskYfGUTgzs6
+                3CUqPXGkywAAA9D4VsJC+FbCQgAAAAdzc2gtcnNhAAABAQC1WGv8ErumDkVivwhJ3kNMJn
+                4I9BANdBVkbJn5a+11XaePeoMGNLwDE4pMjiSwxXaeZMAKTTnMcj0dmiG85QG674IJLmgJ
+                Iig3DknaLTWERc25ae5UbBaxB5V4isOuLj+YSMBwibbVPEzRhimlF155wW26eb7cTrxo2S
+                Cb8MEm6zGTKL32djDs6fw/ym0up24TOTgYEvX6C/+MTKlnopaSXuW6JmdEu1BqbRCW4NEe
+                I/lGewqg6NhiXbdmLYquNc61Vw0NOyUJaKABTVdxFIEK0p09jmS4vEfgnQuw2epShd0LYz
+                AZnghGdA1+hwjWXDg6yRh8ZRODOzrcJSo9caTLAAAAAwEAAQAAAQBMi/vc5c1mnSyFr4xg
+                ndy7Vp4pylfCTgc/oiXmZjvQKE2z3ytSYc0g4U0l3nQ3V8qntnBniMyGc4w/pBFsqh/uV+
+                4EUR3iCRR/lNzwpteps0tQ4hmTciKr7D8YKD7MFcKLVd5BQqg13yOv55lJkhEzhMX8CirZ
+                1LRr74b3vArUEYooJn4djHmoYt6NTd3BZg+cHSUlI0ckfFADHuH/CuPIqn9n56uJu6fLig
+                KK9QS6mqBQNamDV6M4uHYcbHXqnCPcEdN1DBQX2MJ9NVwI5y+tA28e9vEATdK5TFEcd0wz
+                8bGgJ/tzFix0rpKf+Dpf4D4AoU/cRSHmJBzH19+FYjAxAAAAgFixD1e3TneRnylb32dHXY
+                cbjFgZvLIoxuUQpaIqbgRfvy13aJhAE5cajetpvtXnRmDmn9AX9CjZggBePyCbWxZ+BTQh
+                qcWedzBKt2Gkl0vNcxAjBOPfie5C2dISmN1kJANrBob5F0Be9G/kZPJ+ji921cnaygfIIk
+                6f6yBGS+5NAAAAgQDbbT7FB287adnt9pY0DMX3rJBCdhhgBauygKWNweXcQhxBj5scEj2N
+                Qc0TrExtTF/SWiSTV5vNq2ssvps5+BTVjotraBXzf27Bqklms04ed6CiJbVIlwl0sYaZ7J
+                kAgnMyERbEJcNC0FkWHWA79VoKtsAZRQuboI4mPSBIEVfNEQAAAIEA05JHGlhbLtxYgtk/
+                vnLcM5STiw470wnMvXzb2boKrSrnVdczhPd3jXb7IWtYSHMInBvole+O5do0KL9ggbhozu
+                n9ZkpoplcFFgIQfcVbSqWQRPI6zjELHPcsmEi4yM0gX101rJii1IAkIAElhSLDIYTf1b0b
+                nyz7RzatkWVOxBsAAAAWdWJ1bnR1QGlwLTE3Mi0zMS01LTEzMQECAwQF
+                -----END OPENSSH PRIVATE KEY-----
+
           script: |
             # Check Docker status
             sudo systemctl status docker
