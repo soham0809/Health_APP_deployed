@@ -1,11 +1,11 @@
-Flask
-Werkzeug
-Flask-SQLAlchemy
-SQLAlchemy
+flask
+werkzeug
+flask-sqlalchemy
+sqlalchemy
 joblib
 numpy
 opencv-python
 scipy
 scikit-learn==1.5.2
 psycopg2-binary
-pytz
+pytz==2024.1
