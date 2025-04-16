@@ -1,0 +1,88 @@
+name: DockerHub CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "README.md"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: echo "6UHz383_A).94zd" | docker login -u "sohammjoshi" --password-stdin
+
+      - name: Build Docker image with debug output
+        run: |
+          # Print the Dockerfile content for debugging
+          echo "Dockerfile contents:"
+          cat Dockerfile
+
+          # Build with verbose output
+          docker build --no-cache -t sohammjoshi/dwm_project:latest . || (echo "Build failed with exit code: $?" && exit 1)
+
+      - name: Push Docker image
+        run: docker push sohammjoshi/dwm_project:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: self-hosted
+
+    steps:
+      - name: Deploy on EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 13.203.157.95
+
+          username: ubuntu
+          key: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            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
+            -----END OPENSSH PRIVATE KEY-----
+
+          script: |
+            # Check Docker status
+            sudo systemctl status docker
+
+            # Pull the latest image
+            docker pull sohammjoshi/dwm_project:latest
+
+            # Stop and remove existing container if it exists
+            docker stop dwm_project || true
+            docker rm dwm_project || true
+
+            # Run new container
+            docker run -d -p 80:5000 --name dwm_project sohammjoshi/dwm_project:latest
+
+            # Verify container is running
+            docker ps | grep dwm_project
