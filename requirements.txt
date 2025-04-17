@@ -6,6 +6,6 @@ joblib
 numpy
 opencv-python
 scipy
-scikit-learn==1.5.2
+scikit-learn==1.5.1
 psycopg2-binary
 pytz
